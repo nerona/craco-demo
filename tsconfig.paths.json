@@ -2,7 +2,12 @@
     "compilerOptions": {
         "baseUrl": ".",
         "paths": {
-            "~/*": ["src/*"]
+            "~/*": ["src/*"],
+            "~bootstrap/*": ["src/bootstrap/*"],
+            "~components/*": ["src/components/*"],
+            "~hooks/*": ["src/hooks/*"],
+            "~model/*": ["src/model/*"],
+            "~pages/*": ["src/pages/*"]
         }
     }
 }

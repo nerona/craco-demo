@@ -19,7 +19,14 @@ export default defineConfig({
     }),
   ],
   resolve: {
-    alias: [{ find: '~/', replacement: '/src/' }],
+    alias: [
+      { find: '~/', replacement: '/src/' },
+      { find: '~bootstrap/', replacement: '/src/bootstrap/' },
+      { find: '~components/', replacement: '/src/components/' },
+      { find: '~hooks/', replacement: '/src/hooks/' },
+      { find: '~model/', replacement: '/src/model/' },
+      { find: '~pages/', replacement: '/src/pages/' },
+    ],
   },
   define: {
     process: {

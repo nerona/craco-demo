@@ -1,15 +1,41 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
+import { HashRouter, Routes, Route, BrowserRouter } from 'react-router-dom';
+import { ConfigProvider } from 'antd';
+import zhCN from 'antd/lib/locale/zh_CN';
+import { routes, IRoute } from '~bootstrap/routes';
+import { NotFound } from '~pages/NotFound/NotFound';
 import reportWebVitals from './reportWebVitals';
 
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-);
+import './index.css';
+
+const renderRoute = (route: IRoute) =>
+  route.childRoutes?.length ? (
+    <Route path={route.path} element={route.component}>
+      {route.childRoutes.map((childRoute: IRoute) =>
+        childRoute.childRoutes?.length ? (
+          renderRoute(childRoute)
+        ) : (
+          <Route path={childRoute.path} element={childRoute.component} />
+        )
+      )}
+    </Route>
+  ) : (
+    <Route path={route.path} element={route.component} />
+  );
+
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <React.StrictMode>
-    <App />
+    <ConfigProvider locale={zhCN}>
+      <BrowserRouter>
+        <Routes>
+          {routes.map((route: IRoute) => renderRoute(route))}
+
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </BrowserRouter>
+    </ConfigProvider>
   </React.StrictMode>
 );
 
