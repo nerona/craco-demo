@@ -6,6 +6,7 @@
     "@craco/craco": "^6.4.3",
     "antd": "^4.21.4",
     "craco-antd": "^2.0.0",
+    "cross-env": "^7.0.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.3.0",
