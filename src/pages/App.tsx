@@ -48,7 +48,7 @@ export const App: React.FC<{}> = React.memo(() => {
 
   return (
     <Layout>
-      <SiderStyled breakpoint="lg" collapsedWidth={0}>
+      <SiderStyled breakpoint="md" collapsedWidth={0}>
         <LogoStyled />
         <Menu
           theme="dark"

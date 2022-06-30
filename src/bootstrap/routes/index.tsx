@@ -31,7 +31,7 @@ export const routes: IRoute[] = [
 
 export const renderRoute = (route: IRoute) =>
   route.childRoutes?.length ? (
-    <Route path={route.path} element={route.component}>
+    <Route key={route.path} path={route.path} element={route.component}>
       {route.childRoutes.map((childRoute: IRoute) =>
         childRoute.childRoutes?.length ? (
           renderRoute(childRoute)
