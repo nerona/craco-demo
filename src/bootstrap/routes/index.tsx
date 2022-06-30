@@ -1,5 +1,7 @@
 import { Route } from 'react-router-dom';
+import { HomeOutlined } from '@ant-design/icons';
 import { App } from '~pages/App';
+import { NotFound } from '~pages/NotFound/NotFound';
 
 export type IRoute = {
   id?: string;
@@ -10,6 +12,22 @@ export type IRoute = {
   childRoutes?: IRoute[];
   roleRequire?: any[];
 };
+
+export const routes: IRoute[] = [
+  {
+    path: '/',
+    navigatorName: '首页',
+    component: <App />,
+    childRoutes: [
+      {
+        path: 'home',
+        navigatorName: '首页',
+        navigatorIcon: <HomeOutlined />,
+        component: <NotFound />,
+      },
+    ],
+  },
+];
 
 export const renderRoute = (route: IRoute) =>
   route.childRoutes?.length ? (
@@ -25,12 +43,3 @@ export const renderRoute = (route: IRoute) =>
   ) : (
     <Route key={route.path} path={route.path} element={route.component} />
   );
-
-export const routes: IRoute[] = [
-  {
-    path: '/',
-    navigatorName: '首页',
-    component: <App />,
-    childRoutes: [],
-  },
-];

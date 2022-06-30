@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { Routes, Route, BrowserRouter } from 'react-router-dom';
+import { Routes, Route, HashRouter } from 'react-router-dom';
 import { ConfigProvider } from 'antd';
 import zhCN from 'antd/lib/locale/zh_CN';
 import { routes, IRoute, renderRoute } from '~bootstrap/routes';
@@ -13,13 +13,13 @@ const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
   <React.StrictMode>
     <ConfigProvider locale={zhCN}>
-      <BrowserRouter>
+      <HashRouter>
         <Routes>
           {routes.map((route: IRoute) => renderRoute(route))}
 
           <Route path="*" element={<NotFound />} />
         </Routes>
-      </BrowserRouter>
+      </HashRouter>
     </ConfigProvider>
   </React.StrictMode>
 );
