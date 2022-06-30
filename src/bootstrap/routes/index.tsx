@@ -1,17 +1,7 @@
-import { Route } from 'react-router-dom';
 import { HomeOutlined } from '@ant-design/icons';
 import { App } from '~pages/App';
 import { NotFound } from '~pages/NotFound/NotFound';
-
-export type IRoute = {
-  id?: string;
-  path: string;
-  component: React.ReactNode;
-  navigatorName?: string;
-  navigatorIcon?: React.ReactNode;
-  childRoutes?: IRoute[];
-  roleRequire?: any[];
-};
+import { IRoute, buildMenuTree } from './lib';
 
 export const routes: IRoute[] = [
   {
@@ -29,17 +19,4 @@ export const routes: IRoute[] = [
   },
 ];
 
-export const renderRoute = (route: IRoute) =>
-  route.childRoutes?.length ? (
-    <Route key={route.path} path={route.path} element={route.component}>
-      {route.childRoutes.map((childRoute: IRoute) =>
-        childRoute.childRoutes?.length ? (
-          renderRoute(childRoute)
-        ) : (
-          <Route key={childRoute.path} path={childRoute.path} element={childRoute.component} />
-        )
-      )}
-    </Route>
-  ) : (
-    <Route key={route.path} path={route.path} element={route.component} />
-  );
+export const routeMenus = buildMenuTree(routes[routes.length - 1].childRoutes || []);

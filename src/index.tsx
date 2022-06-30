@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom/client';
 import { Routes, Route, HashRouter } from 'react-router-dom';
 import { ConfigProvider } from 'antd';
 import zhCN from 'antd/lib/locale/zh_CN';
-import { routes, IRoute, renderRoute } from '~bootstrap/routes';
+import { routes } from '~bootstrap/routes';
+import { IRoute, renderRoute } from '~bootstrap/routes/lib';
 import { NotFound } from '~pages/NotFound/NotFound';
 import reportWebVitals from './reportWebVitals';
 

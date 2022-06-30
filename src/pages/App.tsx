@@ -1,9 +1,8 @@
-import React, { useMemo, useCallback } from 'react';
+import React, { useCallback } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { Layout, Menu } from 'antd';
-import type { MenuProps } from 'antd';
-import { routes } from '~bootstrap/routes';
+import { routeMenus } from '~bootstrap/routes';
 
 const { Content, Footer, Sider } = Layout;
 
@@ -25,18 +24,6 @@ const FooterStyled = styled(Footer)`
 `;
 
 export const App: React.FC<{}> = React.memo(() => {
-  const items: MenuProps['items'] = useMemo(
-    () =>
-      (routes[routes.length - 1].childRoutes || []).map(
-        ({ path, navigatorIcon, navigatorName }) => ({
-          key: path,
-          icon: navigatorIcon,
-          label: navigatorName,
-        })
-      ),
-    []
-  );
-
   const navigate = useNavigate();
 
   const handleMenuClick = useCallback(
@@ -54,7 +41,7 @@ export const App: React.FC<{}> = React.memo(() => {
           theme="dark"
           mode="inline"
           defaultSelectedKeys={[]}
-          items={items}
+          items={routeMenus}
           onClick={handleMenuClick}
         />
       </SiderStyled>
