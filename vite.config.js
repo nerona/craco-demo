@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { createStyleImportPlugin } from 'vite-plugin-style-import';
+import config from 'config';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -30,7 +31,9 @@ export default defineConfig({
   },
   define: {
     process: {
-      env: {},
+      env: {
+        config,
+      },
     },
   },
   css: {
@@ -46,5 +49,7 @@ export default defineConfig({
   },
   server: {
     open: true,
+    host: true,
+    port: 3333,
   },
 });

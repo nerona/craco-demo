@@ -16,13 +16,15 @@ const renderRoute = (route: IRoute) =>
         childRoute.childRoutes?.length ? (
           renderRoute(childRoute)
         ) : (
-          <Route path={childRoute.path} element={childRoute.component} />
+          <Route key={childRoute.path} path={childRoute.path} element={childRoute.component} />
         )
       )}
     </Route>
   ) : (
-    <Route path={route.path} element={route.component} />
+    <Route key={route.path} path={route.path} element={route.component} />
   );
+
+console.log(process.env.config);
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
