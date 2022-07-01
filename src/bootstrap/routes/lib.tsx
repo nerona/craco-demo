@@ -1,4 +1,5 @@
-import { Route } from 'react-router-dom';
+import { Route, Link } from 'react-router-dom';
+import { NotFound } from '~pages/NotFound/NotFound';
 
 export type IRoute = Partial<{
   id: string;
@@ -28,15 +29,24 @@ export function buildMenuTree(routes: IRoute[] = [], contextPath = '') {
     .map((route) => {
       if (route.index) return null;
 
-      const path = buildPath(contextPath, route.path);
+      const { childRoutes = [], link, path, navigatorName, navigatorIcon } = route || [];
+      const computedPath = buildPath(contextPath, path);
       const menuItem: any = {
-        label: route.navigatorName,
-        icon: route.navigatorIcon,
-        key: route.path ? path : route.link,
+        label: link ? (
+          <a href={link} target="_blank" rel="noopener noreferrer">
+            {navigatorName}
+          </a>
+        ) : childRoutes.length ? (
+          <span>{navigatorName}</span>
+        ) : (
+          <Link to={computedPath}>{navigatorName}</Link>
+        ),
+        icon: navigatorIcon,
+        key: link ? link : computedPath,
       };
 
-      if (route.childRoutes && route.childRoutes.length > 0) {
-        menuItem.children = buildMenuTree(route.childRoutes, path);
+      if (childRoutes.length > 0) {
+        menuItem.children = buildMenuTree(childRoutes, computedPath);
       }
 
       return menuItem;
@@ -64,6 +74,7 @@ export const renderRoute = (route: IRoute, index: number) =>
           ? renderRoute(childRoute, childIndex)
           : renderRouteItem(childRoute, `${index}_${childIndex}`)
       )}
+      <Route path="*" element={<NotFound />} />
     </Route>
   ) : (
     renderRouteItem(route, `${index}`)
