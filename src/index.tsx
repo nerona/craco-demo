@@ -16,7 +16,7 @@ root.render(
     <ConfigProvider locale={zhCN}>
       <HashRouter>
         <Routes>
-          {routes.map((route: IRoute) => renderRoute(route))}
+          {routes.map((route: IRoute, index: number) => renderRoute(route, index))}
 
           <Route path="*" element={<NotFound />} />
         </Routes>

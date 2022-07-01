@@ -48,11 +48,9 @@ export const App: React.FC<{}> = React.memo(() => {
 
       <LayoutStyled>
         <ContentStyled>
-          <div style={{ textAlign: 'center', background: '#fff', height: '100%' }}>
-            <Outlet />
-          </div>
+          <Outlet />
         </ContentStyled>
-        <FooterStyled>Ant Design ©2018 Created by Ant UED</FooterStyled>
+        <FooterStyled>Qkids Admin ©2022 Created by Nerona</FooterStyled>
       </LayoutStyled>
     </Layout>
   );
