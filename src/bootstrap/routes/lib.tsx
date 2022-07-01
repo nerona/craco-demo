@@ -9,6 +9,7 @@ export type IRoute = Partial<{
   childRoutes: IRoute[];
   roleRequire: any[];
   index: boolean;
+  link: string;
 }>;
 
 export function buildPath(contextPath: string, path?: string) {
@@ -31,7 +32,7 @@ export function buildMenuTree(routes: IRoute[] = [], contextPath = '') {
       const menuItem: any = {
         label: route.navigatorName,
         icon: route.navigatorIcon,
-        key: path,
+        key: route.path ? path : route.link,
       };
 
       if (route.childRoutes && route.childRoutes.length > 0) {
@@ -48,7 +49,11 @@ export const renderRouteItem = (route: IRoute, key: string) => {
     return <Route key={key} index={route.index} element={route.component} />;
   }
 
-  return <Route key={route.path} path={route.path} element={route.component} />;
+  if (route.path) {
+    return <Route key={route.path} path={route.path} element={route.component} />;
+  }
+
+  return null;
 };
 
 export const renderRoute = (route: IRoute, index: number) =>

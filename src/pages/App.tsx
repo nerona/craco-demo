@@ -1,8 +1,9 @@
-import React, { useCallback } from 'react';
-import { Outlet, useNavigate } from 'react-router-dom';
+import React, { useCallback, useState, useEffect } from 'react';
+import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
-import { Layout, Menu } from 'antd';
+import { Layout, Menu, Grid } from 'antd';
 import { routeMenus } from '~bootstrap/routes';
+import { createEleAndClick } from '~/model/utils';
 
 const { Content, Footer, Sider } = Layout;
 
@@ -25,13 +26,32 @@ const FooterStyled = styled(Footer)`
 
 export const App: React.FC<{}> = React.memo(() => {
   const navigate = useNavigate();
+  const { pathname } = useLocation();
+  const breakpoint = Grid.useBreakpoint();
+  const [activeKey, setActiveKey] = useState<string[]>([]);
+  const [openKeys, setOpenKeys] = useState<string[]>([]);
+
+  useEffect(() => {
+    if (pathname.length > 0) {
+      setActiveKey([pathname]);
+    }
+  }, [pathname]);
 
   const handleMenuClick = useCallback(
     ({ key }: any) => {
-      navigate(key);
+      if (/^http/.test(key)) {
+        createEleAndClick(key);
+      } else {
+        navigate(key);
+      }
     },
     [navigate]
   );
+
+  const handleSubMenuClick = useCallback((keys: string[]) => {
+    const value = keys.length > 0 ? keys.pop() : undefined;
+    setOpenKeys(value ? [value] : []);
+  }, []);
 
   return (
     <Layout>
@@ -40,9 +60,11 @@ export const App: React.FC<{}> = React.memo(() => {
         <Menu
           theme="dark"
           mode="inline"
-          defaultSelectedKeys={[]}
           items={routeMenus}
           onClick={handleMenuClick}
+          selectedKeys={activeKey}
+          openKeys={breakpoint.md ? openKeys : undefined}
+          onOpenChange={handleSubMenuClick}
         />
       </SiderStyled>
 
