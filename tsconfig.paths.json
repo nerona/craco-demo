@@ -7,7 +7,8 @@
             "~components/*": ["src/components/*"],
             "~hooks/*": ["src/hooks/*"],
             "~model/*": ["src/model/*"],
-            "~pages/*": ["src/pages/*"]
+            "~pages/*": ["src/pages/*"],
+            "~utils/*": ["src/utils/*"]
         }
     }
 }

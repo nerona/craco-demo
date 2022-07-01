@@ -6,6 +6,7 @@
     "@ant-design/icons": "^4.7.0",
     "@craco/craco": "^6.4.3",
     "antd": "^4.21.4",
+    "axios": "^0.27.2",
     "config": "^3.3.7",
     "craco-antd": "^2.0.0",
     "events": "^3.3.0",
