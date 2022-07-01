@@ -3,6 +3,7 @@ import { Outlet, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { Layout, Menu, Grid } from 'antd';
 import { routeMenus } from '~bootstrap/routes';
+import { ApplicationContext } from '~bootstrap/ApplicationContext';
 
 const { Content, Footer, Sider } = Layout;
 
@@ -42,25 +43,27 @@ export const App: React.FC<{}> = React.memo(() => {
   }, []);
 
   return (
-    <Layout>
-      <SiderStyled breakpoint="md" collapsedWidth={0}>
-        <LogoStyled />
-        <Menu
-          theme="dark"
-          mode="inline"
-          items={routeMenus}
-          selectedKeys={activeKey}
-          openKeys={breakpoint.md ? openKeys : undefined}
-          onOpenChange={handleSubMenuClick}
-        />
-      </SiderStyled>
+    <ApplicationContext>
+      <Layout>
+        <SiderStyled breakpoint="md" collapsedWidth={0}>
+          <LogoStyled />
+          <Menu
+            theme="dark"
+            mode="inline"
+            items={routeMenus}
+            selectedKeys={activeKey}
+            openKeys={breakpoint.md ? openKeys : undefined}
+            onOpenChange={handleSubMenuClick}
+          />
+        </SiderStyled>
 
-      <LayoutStyled>
-        <ContentStyled>
-          <Outlet />
-        </ContentStyled>
-        <FooterStyled>Qkids Admin ©2022 Created by Nerona</FooterStyled>
-      </LayoutStyled>
-    </Layout>
+        <LayoutStyled>
+          <ContentStyled>
+            <Outlet />
+          </ContentStyled>
+          <FooterStyled>Qkids Admin ©2022 Created by Nerona</FooterStyled>
+        </LayoutStyled>
+      </Layout>
+    </ApplicationContext>
   );
 });
